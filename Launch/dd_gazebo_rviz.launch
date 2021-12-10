@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+	<include file = "$(find dd_sim)/Launch/dd_world_urdf.launch"/>
+
+	<arg name ="gui" default="False" />
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        	<param name="use_gui" value="False"/>
+       	</node> 
+	<param name = "robot_description" command ="$(find xacro)/xacro '$(find dd_sim)/Models/robot_model/model.urdf.xacro'" />
+	<param name = "use_gui" value = "$(arg gui)" />
+	<node name = "robot_state_publisher" pkg = "robot_state_publisher" type = "robot_state_publisher" />
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find dd_sim)/rviz/dd_gazebo_model.rviz" required="true" />
+</launch>
